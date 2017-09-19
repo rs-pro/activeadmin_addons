@@ -1,6 +1,9 @@
 # ActiveAdmin Addons
+
+Modified - dropped coffeescript, fixed for activeadmin 1.1.0
+
 [![Gem Version](https://badge.fury.io/rb/activeadmin_addons.svg)](https://badge.fury.io/rb/activeadmin_addons)
-[![Build Status](https://secure.travis-ci.org/platanus/activeadmin_addons.svg?branch=master)](http://travis-ci.org/platanus/activeadmin_addons)
+[![Build Status](https://secure.travis-ci.org/rs-pro/activeadmin_addons.svg?branch=master)](http://travis-ci.org/rs-pro/activeadmin_addons)
 
 ActiveAdmin Addons will extend your ActiveAdmin and enable a set of addons you can optionally use to improve the ActiveAdmin UI and make it awesome.
 
@@ -36,7 +39,7 @@ ActiveAdmin Addons will extend your ActiveAdmin and enable a set of addons you c
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'activeadmin_addons'
+gem 'activeadmin_addons', github: 'rs-pro'
 ```
 
 And then execute:
@@ -49,6 +52,12 @@ After that, run the generator:
 
 ```bash
 $ rails g activeadmin_addons:install
+```
+
+And install dependencies via yarn
+```bash
+$ yarn add select2
+$ yarn add jquery-datetimepicker
 ```
 
 Check [here](docs/install_generator.md) to see more information about this generator.

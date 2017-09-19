@@ -22,7 +22,7 @@ RSpec.configure do |config|
   config.filter_run focus: true
   config.filter_run_excluding skip: true
   config.run_all_when_everything_filtered = true
-  config.use_transactional_fixtures = false
+  #config.use_transactional_fixtures = false
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
