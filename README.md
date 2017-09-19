@@ -39,7 +39,7 @@ ActiveAdmin Addons will extend your ActiveAdmin and enable a set of addons you c
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'activeadmin_addons', github: 'rs-pro'
+gem 'activeadmin_addons', github: 'rs-pro/activeadmin_addons'
 ```
 
 And then execute:
