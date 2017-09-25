@@ -54,12 +54,6 @@ After that, run the generator:
 $ rails g activeadmin_addons:install
 ```
 
-And install dependencies via yarn
-```bash
-$ yarn add select2
-$ yarn add jquery-datetimepicker
-```
-
 Check [here](docs/install_generator.md) to see more information about this generator.
 
 ## Default changes to behaviour
