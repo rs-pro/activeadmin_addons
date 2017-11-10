@@ -19,10 +19,14 @@ module ActiveAdminAddons
     end
 
     def association_name
-      valid_method.to_s.singularize.chomp("_id")
+      #valid_method.to_s.singularize.chomp("_id")
+      valid_method.to_s.chomp("_id")
     end
 
     def method_model
+      p object_class
+      p association_name
+      binding.pry
       object_class.reflect_on_association(association_name).try(:klass) ||
         association_name.classify.constantize
     end
