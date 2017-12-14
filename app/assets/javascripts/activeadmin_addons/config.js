@@ -1,7 +1,7 @@
 $(function() {
   ActiveadminAddons = {
     config: {
-      defaultSelect: $('body').data('default-select'),
+      defaultSelect: $('#activeadmin_addons_data').data('default-select'),
     },
   };
 });

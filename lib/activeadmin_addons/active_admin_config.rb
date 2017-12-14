@@ -1,8 +1,10 @@
+require 'active_admin/views/pages/base'
 class ActiveAdmin::Views::Pages::Base
-  alias_method :original_add_classes_to_body, :add_classes_to_body
+  private
+  alias_method :original_build_page, :build_page
 
-  def add_classes_to_body
-    original_add_classes_to_body
-    @body.set_attribute "data-default-select", ActiveadminAddons.default_select
+  def build_page
+    original_build_page
+    div "", id: "activeadmin_addons_data", 'data-default-select': ActiveadminAddons.default_select
   end
 end
