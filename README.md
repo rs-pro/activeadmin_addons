@@ -1,7 +1,17 @@
 # ActiveAdmin Addons
 [![Gem Version](https://badge.fury.io/rb/activeadmin_addons.svg)](https://badge.fury.io/rb/activeadmin_addons)
+[![NPM Version](https://img.shields.io/npm/v/@platanus/activeadmin_addons.svg)](https://www.npmjs.com/package/@platanus/activeadmin_addons)
+[![CI](https://github.com/platanus/activeadmin_addons/actions/workflows/ci.yml/badge.svg)](https://github.com/platanus/activeadmin_addons/actions/workflows/ci.yml)
 
 ActiveAdmin Addons will extend your ActiveAdmin and enable a set of addons you can optionally use to improve the ActiveAdmin UI and make it awesome.
+
+## 🚀 ActiveAdmin 4 Support
+
+This gem now supports ActiveAdmin 4! The latest beta version includes:
+- Support for modern JavaScript bundlers (esbuild, webpack, importmap)
+- ESM module support for better tree-shaking
+- Updated CSS selectors for ActiveAdmin 4 compatibility
+- NPM package available for easier JavaScript management
 
 ## What you get:
 
@@ -36,10 +46,18 @@ ActiveAdmin Addons will extend your ActiveAdmin and enable a set of addons you c
 
 ## Installation
 
+### Requirements
+
+- Ruby >= 3.2
+- Rails >= 7.0
+- ActiveAdmin >= 3.0 (ActiveAdmin 4 supported!)
+
+### For ActiveAdmin 4
+
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'activeadmin_addons'
+gem 'activeadmin_addons', '~> 2.0.0.beta'
 ```
 
 And then execute:
@@ -48,13 +66,53 @@ And then execute:
 $ bundle
 ```
 
-After that, run the generator:
+After that, run the generator with your preferred bundler:
 
 ```bash
+# Auto-detect your bundler (recommended)
 $ rails g activeadmin_addons:install
+
+# Or specify explicitly:
+$ rails g activeadmin_addons:install --bundler=esbuild
+$ rails g activeadmin_addons:install --bundler=importmap
+$ rails g activeadmin_addons:install --bundler=webpack
+$ rails g activeadmin_addons:install --bundler=sprockets
 ```
 
-Check [here](docs/install_generator.md) to see more information about this generator.
+#### Using NPM Package (Optional)
+
+For better JavaScript module management, you can also install via NPM:
+
+```bash
+npm install @platanus/activeadmin_addons
+```
+
+Then import in your `active_admin.js`:
+
+```javascript
+import '@platanus/activeadmin_addons';
+```
+
+### For ActiveAdmin 3 (Legacy)
+
+For ActiveAdmin 3.x, use version 1.x of this gem:
+
+```ruby
+gem 'activeadmin_addons', '~> 1.0'
+```
+
+Check [here](docs/install_generator.md) to see more information about the generator.
+
+## Migrating from ActiveAdmin 3 to 4
+
+If you're upgrading from ActiveAdmin 3 to 4, please note:
+
+1. **Update your Gemfile**: Use version 2.x of activeadmin_addons
+2. **Run the installer again**: The asset pipeline has changed significantly
+3. **CSS Selectors**: Some CSS classes have changed (e.g., `.filter_form` → `.filters-form`)
+4. **JavaScript modules**: Consider switching to the NPM package for better module management
+
+For detailed migration instructions, see [ActiveAdmin 4 Migration Guide](docs/activeadmin-4-gem-updates.md).
 
 ## Default changes to behaviour
 
@@ -62,7 +120,7 @@ Installing this gem will enable the following changes by default:
 
 * The default date input will be `:datepicker` instead of `:date_select`
 * Select filters will show translated values when used with Rails built-in `enums`
-* All select boxes will use select2
+* All select boxes will use Slim Select (replacing Select2 in v2.x)
 
 ## Addons
 
@@ -239,16 +297,38 @@ Use default active_admin theme.
 
 ## Publishing
 
+### Publishing a New Version
+
 On a new branch:
 
-1. Change `VERSION` in `lib/activeadmin_addons/version.rb`. Note that beta versions should have a `.beta` suffix (e.g. `1.0.0.beta.1`).
-2. Change `"version"` in `package.json` to the same version. Note that beta versions should have a `-beta` suffix (e.g. `1.0.0-beta.1`).
+1. Change `VERSION` in `lib/activeadmin_addons/version.rb`. Note that beta versions should have a `.beta` suffix (e.g. `2.0.0.beta.5`).
+2. Change `"version"` in `package.json` to the same version. Note that beta versions should have a `-beta` suffix (e.g. `2.0.0-beta.5`).
 3. Change `Unreleased` title to current version in `CHANGELOG.md`.
 4. Run `bundle install`.
 5. Open a new PR with those changes.
 6. Once the PR is merged, checkout to master and pull the changes.
-8. Create tag. For example: `git tag v1.0.0`.
-9. Push tag. For example: `git push origin v1.0.0`. This will trigger the CI to publish the new version to npm and rubygems.
+7. Create tag. For example: `git tag v2.0.0.beta.5`.
+8. Push tag. For example: `git push origin v2.0.0.beta.5`.
+
+### Automated Publishing
+
+The GitHub Actions workflow will automatically:
+- Publish the Ruby gem to RubyGems (requires `RUBYGEMS_API_KEY` secret)
+- Publish the NPM package to npm registry (requires `NPM_TOKEN` secret)
+
+### Manual Publishing
+
+If needed, you can publish manually:
+
+```bash
+# Ruby Gem
+gem build activeadmin_addons.gemspec
+gem push activeadmin_addons-2.0.0.beta.5.gem
+
+# NPM Package
+npm run prepublishOnly
+npm publish --access public
+```
 
 ## Contributing
 

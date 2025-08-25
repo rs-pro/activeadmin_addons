@@ -32,7 +32,8 @@ function setupSelect(el) {
   el.style.width = el.dataset.width;
   el.style.fontSize = selectStyles.fontSize;
 
-  const searchSelectFilter = el.closest('.filter_form_field');
+  // ActiveAdmin 4 uses .filters-form instead of .filter_form
+  const searchSelectFilter = el.closest('.filter_form_field, .filters-form-field');
   if (searchSelectFilter) {
     if (searchSelectFilter.classList.contains('search_select_filter') ||
     searchSelectFilter.classList.contains('filter_string')) {

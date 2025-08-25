@@ -1,0 +1,72 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 2.0.0-beta.5)'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set version if manual trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          npm version ${{ github.event.inputs.version }} --no-git-tag-version
+          echo "Publishing version ${{ github.event.inputs.version }}"
+
+      - name: Build package
+        run: npm run prepublishOnly
+
+      - name: Check package contents
+        run: npm pack --dry-run
+
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release (if manual)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          release_name: Release v${{ github.event.inputs.version }}
+          body: |
+            ## ActiveAdmin Addons v${{ github.event.inputs.version }}
+            
+            ### What's Changed
+            - ActiveAdmin 4 support
+            - Modern JavaScript bundler support (esbuild, webpack, importmap)
+            - Updated dependencies and requirements
+            
+            ### Installation
+            ```bash
+            # Ruby gem
+            gem 'activeadmin_addons', '~> 2.0.0.beta'
+            
+            # NPM package
+            npm install @platanus/activeadmin_addons
+            ```
+            
+            See README for detailed setup instructions.
+          draft: false
+          prerelease: ${{ contains(github.event.inputs.version, 'beta') }}

@@ -14,11 +14,12 @@ Gem::Specification.new do |s|
   s.summary     = "Set of addons to help with the activeadmin ui"
   s.description = "Set of addons to help with the activeadmin ui"
   s.license     = "MIT"
-  s.required_ruby_version = '>= 2.7.0'
+  s.required_ruby_version = '>= 3.2.0'
 
   s.files = Dir["{app,config,db,lib,vendor/assets}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency "railties"
+  s.add_dependency "activeadmin", [">= 3.0", "< 5"]
+  s.add_dependency "railties", ">= 7.0"
   s.add_dependency "redcarpet"
   s.add_dependency "require_all"
   s.add_dependency "xdan-datetimepicker-rails", "~> 2.5.1"
@@ -34,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "pry-rails"
   s.add_development_dependency "puma"
-  s.add_development_dependency "rails", "~> 6.1", ">= 6.1.4.4"
+  s.add_development_dependency "rails", ">= 7.0"
   s.add_development_dependency "rexml"
   s.add_development_dependency "rspec_junit_formatter"
   s.add_development_dependency "rspec-rails"

@@ -1,26 +1,61 @@
 {
-  "name": "activeadmin_addons",
-  "version": "2.0.0-beta.4",
-  "description": "Set of addons to help with the activeadmin ui",
-  "main": "src/all.js",
+  "name": "@platanus/activeadmin_addons",
+  "version": "2.0.0-beta.5",
+  "description": "Set of addons to help with the ActiveAdmin UI",
+  "main": "src/activeadmin_addons.js",
+  "module": "src/activeadmin_addons.esm.js",
+  "style": "src/stylesheets/all.scss",
+  "exports": {
+    ".": {
+      "import": "./src/activeadmin_addons.esm.js",
+      "require": "./src/activeadmin_addons.js",
+      "default": "./src/activeadmin_addons.esm.js"
+    },
+    "./css": "./src/stylesheets/all.scss",
+    "./style": "./src/stylesheets/all.scss"
+  },
   "files": [
-    "src/*"
+    "src/**/*",
+    "app/javascript/**/*",
+    "app/assets/**/*",
+    "vendor/assets/**/*"
   ],
   "repository": "https://github.com/platanus/activeadmin_addons.git",
   "author": "Platanus <rubygems@platan.us>",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "./bin/js-prepublish"
+    "prepare_javascripts_src": "rm -rf src && mkdir -p src && cp -R app/javascript/activeadmin_addons/* src/",
+    "prepare_esm_module": "cp app/javascript/activeadmin_addons/activeadmin_addons.esm.js src/activeadmin_addons.esm.js",
+    "prepare_traditional_module": "cp app/javascript/activeadmin_addons/activeadmin_addons.js src/activeadmin_addons.js",
+    "prepare_stylesheets_src": "mkdir -p src/stylesheets && cp -R app/javascript/activeadmin_addons/stylesheets/* src/stylesheets/",
+    "prepublishOnly": "npm run prepare_javascripts_src && npm run prepare_esm_module && npm run prepare_traditional_module && npm run prepare_stylesheets_src"
   },
-  "devDependencies": {
-    "eslint": "^8.27.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-platanus": "^0.1.0"
+  "keywords": [
+    "activeadmin",
+    "rails",
+    "admin",
+    "ui",
+    "addons",
+    "slim-select",
+    "date-picker",
+    "color-picker"
+  ],
+  "peerDependencies": {
+    "jquery": ">= 3.0, < 5",
+    "slim-select": "^2.9.0",
+    "jquery-datetimepicker": "^2.5.21",
+    "lodash.merge": "^4.6.2"
   },
   "dependencies": {
     "jquery-datetimepicker": "^2.5.21",
     "lodash.merge": "^4.6.2",
     "script-loader": "^0.7.2",
-    "slim-select": "^2.4.5"
+    "slim-select": "^2.9.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.27.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-platanus": "^0.1.0",
+    "jquery": "^3.7.1"
   }
 }
