@@ -47,5 +47,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "selenium-webdriver", '~> 4.10'
   s.add_development_dependency "shoulda-matchers"
   s.add_development_dependency "shrine", "~> 3.0"
+  s.add_development_dependency "sprockets", "~> 4.0"
+  s.add_development_dependency "sprockets-rails"
+  s.add_development_dependency "sassc-rails"
   s.add_development_dependency "sqlite3"
 end

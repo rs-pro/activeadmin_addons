@@ -16,10 +16,12 @@ jobs:
       matrix:
         ruby: ['3.2', '3.3']
         gemfile:
-          - rails_7_0_activeadmin_4
-          - rails_7_1_activeadmin_4
-          - rails_7_2_activeadmin_4
-          - rails_8_0_activeadmin_4
+          - rails_7_0_activeadmin_4_sprockets
+          - rails_7_1_activeadmin_4_sprockets
+          - rails_7_2_activeadmin_4_sprockets
+          - rails_7_2_activeadmin_4_importmap
+          - rails_7_2_activeadmin_4_esbuild
+          - rails_8_0_activeadmin_4_propshaft
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile

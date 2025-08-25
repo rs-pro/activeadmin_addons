@@ -10,13 +10,14 @@ class Invoice < ActiveRecord::Base
   has_and_belongs_to_many :items
   has_and_belongs_to_many :other_items, class_name: 'Item'
 
-  enum state: {
+  # Rails 8 compatible enum syntax
+  enum :state, {
     pending: 'pending',
     rejected: 'rejected',
     approved: 'approved'
   }
 
-  enum status: { active: 0, archived: 1 }
+  enum :status, { active: 0, archived: 1 }
 
   # Uncomment to test validations
   # validates :city, :city_id, :category, :category_id, :updated_at, :number, :item_ids, :color,
